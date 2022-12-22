@@ -5,7 +5,7 @@ function abrirCalculadora(){
     body += "<form>";
     body += "<div class='row'>";
     body += "<div class='col'><input name='num1' type='number' class='form-control' placeholder='Numero 1' required></div>";
-    body += "<select name='op' class='col'>";
+    body += "<select name='op' class='col' form-control>";
     body += "<option value ='+'>Suma</option>";
     body += "<option value ='-'>Resta</option>";
     body += "<option value ='*'>Multiplicación</option>";
