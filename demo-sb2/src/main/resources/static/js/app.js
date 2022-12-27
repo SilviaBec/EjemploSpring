@@ -14,7 +14,10 @@ function abrirCalculadora(){
     body += "</select>"
     body += "<div class='col'><input name='num2' type='number' class='form-control' placeholder='Numero 2' required></div>";
     body += "</div>";
+    body += "<div class='row'>";
+    body += "<button type='button' class='btn btn-primary'>Calcular</button>";
     body += "</form>";
+    body += "</div>";
 
     main.innerHTML =body;
                                                                             
