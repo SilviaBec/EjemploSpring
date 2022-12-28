@@ -15,11 +15,34 @@ function abrirCalculadora(){
     body += "<div class='col'><input name='num2' type='number' class='form-control' placeholder='Numero 2' required></div>";
     body += "</div>";
     body += "<div class='row'>";
-    body += "<button type='button' class='btn btn-primary'>Calcular</button>";
-    body += "</form>";
+    body += "<button type='button' class='btn btn-primary' onClick='realizarOperacion()'>Calcular</button>";
     body += "</div>";
-
+    body += "<div id='resultado' class='row'></div>";
+    body += "</form>";
+    
     main.innerHTML =body;
                                                                             
+}
+
+function realizarOperacion(){
+    const num1 = document.getElementsByName("num1").item(0).value;
+    const num2 = document.getElementsByName("num2").item(0).value;
+    const op = document.getElementsByName("op").item(0).value;
+
+    console.log(num1,op,num2);
+
+    let resultado=0;
+    switch(op){
+    case '+':
+        resultado= num1+num2;
+        break;
+    case '-':
+        resultado= num1-num2;
+        break;
+    case '/':
+        resultado=num1/num2;
+        break;
+    }
+
 }
 
