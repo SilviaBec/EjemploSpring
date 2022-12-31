@@ -28,6 +28,7 @@ function realizarOperacion(){
     const num1 = document.getElementsByName("num1").item(0).value;
     const num2 = document.getElementsByName("num2").item(0).value;
     const op = document.getElementsByName("op").item(0).value;
+    const tagResultado = document.getElementById("resultado");
 
     console.log(num1,op,num2);
 
@@ -43,6 +44,6 @@ function realizarOperacion(){
         resultado=num1/num2;
         break;
     }
-
+    tagResultado.innerText = resultado;
 }
 
