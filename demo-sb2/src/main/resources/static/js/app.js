@@ -35,13 +35,13 @@ function realizarOperacion(){
     let resultado=0;
     switch(op){
     case '+':
-        resultado= num1+num2;
+        resultado= parseInt(num1)+parseInt(num2);
         break;
     case '-':
-        resultado= num1-num2;
+        resultado= parseInt(num1)-parseInt(num2);
         break;
     case '/':
-        resultado=num1/num2;
+        resultado=parseInt(num1)/parseInt(num2);
         break;
     }
     tagResultado.innerText = resultado;
