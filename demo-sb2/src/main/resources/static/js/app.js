@@ -30,6 +30,17 @@ function realizarOperacion(){
     const op = document.getElementsByName("op").item(0).value;
     const tagResultado = document.getElementById("resultado");
 
+
+    if (num1 === ''){
+        alert("El número 1 no puede estar vacío");
+        return;
+    } 
+    if (num2 === ''){
+        alert("El número 2 no puede estar vacío")
+        return;
+    }
+
+
     console.log(num1,op,num2);
 
     let resultado=0;
@@ -42,6 +53,12 @@ function realizarOperacion(){
         break;
     case '/':
         resultado=parseInt(num1)/parseInt(num2);
+        break;
+    case '*':
+        resultado=parseInt(num1)*parseInt(num2);
+        break;
+    case '%':
+        resultado=parseInt(num1)% parseInt(num2);
         break;
     }
     tagResultado.innerText = resultado;
