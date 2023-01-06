@@ -57,26 +57,7 @@ function realizarOperacion() {
         return;
     }
 
-    console.log(num1, op, num2);
-
-    let resultado = 0;
-    switch (op) {
-        case "+":
-            resultado = parseInt(num1) + parseInt(num2);
-            break;
-        case "-":
-            resultado = parseInt(num1) - parseInt(num2);
-            break;
-        case "/":
-            resultado = parseInt(num1) / parseInt(num2);
-            break;
-        case "*":
-            resultado = parseInt(num1) * parseInt(num2);
-            break;
-        case "%":
-            resultado = parseInt(num1) % parseInt(num2);
-            break;
-    }
+    let resultado = ejecutarOperacionRemoto(num1, op, num2);
     tagResultado.innerText = resultado;
 }
 
@@ -88,3 +69,33 @@ if (alertTrigger) {
         alert("Nice, you triggered this alert message!", "success");
     });
 }
+
+const ejecutarOperacionRemoto = (num1, op, num2) =>{
+
+}
+
+
+const ejecutarOperacionLocal = (num1, op, num2) =>{
+    console.log(num1, op, num2);
+
+    let resultado = 0;
+    switch (op) {
+        case "+":
+            resultado = parseInt(num1) + parseInt(num2);
+            break;
+        case "-":
+            resultado = num1 - num2;
+            break;
+        case "/":
+            resultado = num1 / num2;
+            break;
+        case "*":
+            resultado = num1 * num2;
+            break;
+        case "%":
+            resultado = num1 % num2;
+            break;
+    }
+    return resultado;
+}
+
