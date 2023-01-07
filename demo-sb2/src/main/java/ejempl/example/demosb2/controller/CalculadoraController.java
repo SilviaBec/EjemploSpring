@@ -3,6 +3,7 @@ package ejempl.example.demosb2.controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -11,9 +12,9 @@ public class CalculadoraController {
 
     @GetMapping
     public String operarGet(
-        Integer num1,
-        String op,
-        Integer num2){
+        @RequestParam("num1") Integer num1,
+        @RequestParam("op") String op,
+        @RequestParam("num2") Integer num2){
 
             var resultado = 0;
     switch (op) {

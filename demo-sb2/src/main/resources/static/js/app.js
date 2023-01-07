@@ -2,10 +2,9 @@ function abrirCalculadora() {
     const main = document.getElementsByTagName("main").item(0);
     // console.log("main:", main)
     let body = "<h1>Calculadora</h1>";
-    body += "<form>";
+    body += "<form method='get' action='api/calculator'>";
     body += "<div class='row'>";
-    body +=
-        "<div class='col'><input name='num1' type='number' class='form-control' placeholder='Numero 1' required></div>";
+    body += "<div class='col'><input name='num1' type='number' class='form-control' placeholder='Numero 1' required></div>";
     body += "<select name='op' class='col' form-control>";
     body += "<option value ='+'>Suma</option>";
     body += "<option value ='-'>Resta</option>";
@@ -13,12 +12,11 @@ function abrirCalculadora() {
     body += "<option value ='/'>Division</option>";
     body += "<option value ='%'>Residuo</option>";
     body += "</select>";
-    body +=
-        "<div class='col'><input name='num2' type='number' class='form-control' placeholder='Numero 2' required></div>";
+    body += "<div class='col'><input name='num2' type='number' class='form-control' placeholder='Numero 2' required></div>";
     body += "</div>";
     body += "<div class='row'>";
-    body +=
-        "<button type='button' class='btn btn-primary' onClick='realizarOperacion()'>Calcular</button>";
+    body +="<button type='button' class='btn btn-primary' onClick='realizarOperacion()'>Calcular</button>";
+    // body +="<button type='submit' class='btn btn-secundary' onClick='realizarOperacion()'>Enviar</button>";
     body += "</div>";
     body += "<div id='resultado' class='row'></div>";
     body += "</form>";
@@ -49,16 +47,16 @@ function realizarOperacion() {
 
 
     if (num1 === "") {
-        alert("El número 1 no puede estar vacío","danger");
+        alert("El número 1 no puede estar vacío","warning");
         return;
     }
     if (num2 === "") {
-        alert("El número 2 no puede estar vacío", "danger");
+        alert("El número 2 no puede estar vacío", "warning");
         return;
     }
 
-    let resultado = ejecutarOperacionRemoto(num1, op, num2);
-    tagResultado.innerText = resultado;
+    ejecutarOperacionRemoto(num1, op, num2, tagResultado);
+    
 }
 
 
@@ -70,12 +68,21 @@ if (alertTrigger) {
     });
 }
 
-const ejecutarOperacionRemoto = (num1, op, num2) =>{
+const ejecutarOperacionRemotoGet = (num1, op, num2, tagResultado) =>{
+    op = op == '+' ? '%28' : op;
+    op = op == '%' ? '%25' : op;
+
+    const url = `api/calculator?num1=${num1}&op=${op}&num2=${num2}`;
+
+    
+    fetch(url)
+    .then(response => response.text)
+        .then(respuesta => tagResultado.innerText = respuesta);
 
 }
 
 
-const ejecutarOperacionLocal = (num1, op, num2) =>{
+const ejecutarOperacionLocal = (num1, op, num2, tagResultado) =>{
     console.log(num1, op, num2);
 
     let resultado = 0;
@@ -96,6 +103,7 @@ const ejecutarOperacionLocal = (num1, op, num2) =>{
             resultado = num1 % num2;
             break;
     }
-    return resultado;
+    tagResultado,innerHTML = resultado;
 }
 
+abrirCalculadora()
