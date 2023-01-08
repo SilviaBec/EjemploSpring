@@ -2,7 +2,7 @@ function abrirCalculadora() {
     const main = document.getElementsByTagName("main").item(0);
     // console.log("main:", main)
     let body = "<h1>Calculadora</h1>";
-    body += "<form method='get' action='api/calculator'>";
+    body += "<form>";
     body += "<div class='row'>";
     body += "<div class='col'><input name='num1' type='number' class='form-control' placeholder='Numero 1' required></div>";
     body += "<select name='op' class='col' form-control>";
@@ -24,27 +24,12 @@ function abrirCalculadora() {
     main.innerHTML = body;
 }
 
-function realizarOperacion() {
-    const alertPlaceholder = document.getElementById("liveAlertPlaceholder");
+const realizarOperacion = () => {
 
     const num1 = document.getElementsByName("num1").item(0).value;
     const num2 = document.getElementsByName("num2").item(0).value;
     const op = document.getElementsByName("op").item(0).value;
     const tagResultado = document.getElementById("resultado");
-
-    const alert = (message, type) => {
-        const wrapper = document.createElement("div");
-        wrapper.innerHTML = [
-            `<div class="alert alert-${type} alert-dismissible" role="alert">`,
-            `   <div>${message}</div>`,
-            '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
-            "</div>",
-        ].join("");
-    
-        alertPlaceholder.append(wrapper);
-    };
-
-
 
     if (num1 === "") {
         alert("El número 1 no puede estar vacío","warning");
@@ -55,9 +40,24 @@ function realizarOperacion() {
         return;
     }
 
-    ejecutarOperacionRemoto(num1, op, num2, tagResultado);
+    ejecutarOperacionRemotoPost(num1, op, num2, tagResultado);
     
 }
+
+const alert = (message, type) => {
+    const alertPlaceholder = document.getElementById("liveAlertPlaceholder");
+
+    const wrapper = document.createElement("div");
+    wrapper.innerHTML = [
+        `<div class="alert alert-${type} alert-dismissible" role="alert">`,
+        `   <div>${message}</div>`,
+        '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+        "</div>",
+    ].join("");
+
+    alertPlaceholder.append(wrapper);
+};
+
 
 
 
@@ -76,9 +76,37 @@ const ejecutarOperacionRemotoGet = (num1, op, num2, tagResultado) =>{
 
     
     fetch(url)
-    .then(response => response.text)
-        .then(respuesta => tagResultado.innerText = respuesta);
+    .then(response => response.text())
+        .then(respuesta => {
+            tagResultado.innerText = respuesta});
 
+}
+
+const ejecutarOperacionRemotoPost = async (num1,op,num2,tagResultado) => {
+    const url = 'api/calculator';
+
+    const request ={
+        "num1":num1,
+        "op":op,
+        "num2":num2
+    };
+
+    let response = await fetch (url,{
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: JSON.stringify(request)
+    }
+
+    );
+
+    if(response.ok){
+        let result =await response.json();
+        tagResultado.innerHTML = result.resultado;
+    } else{
+        alert("HTTP-Error: "+ response.status, "danger");
+    }
 }
 
 
